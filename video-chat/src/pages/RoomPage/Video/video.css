@@ -1,0 +1,27 @@
+.video {
+  width: 70vw;
+  height: 100vh;
+  display: grid;
+  background-color: black;
+  align-items: center;
+}
+
+.video-1 {
+  width: 100%;
+  align-items: center;
+}
+
+.video-2,
+.video-3,
+.video-4,
+.video-5,
+.video-6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  align-items: center;
+}
+
+.video-item {
+  width: inherit;
+}
