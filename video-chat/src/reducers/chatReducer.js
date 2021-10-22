@@ -9,6 +9,7 @@ const initialState = {
   time: "",
   text: "",
   message: [],
+  users: [],
 };
 
 export const chatReducer = (state = initialState, action) => {
@@ -39,7 +40,7 @@ export const chatReducer = (state = initialState, action) => {
     case ACTIONS.SHARE_ROOMS:
       return {
         ...state,
-        rooms: [...action.rooms],
+        rooms: action.rooms,
       };
     case ACTIONS.GET_MESSAGE:
       return {
@@ -54,6 +55,18 @@ export const chatReducer = (state = initialState, action) => {
         userName: action.userName,
         time: action.time,
         text: action.text,
+      };
+    case ACTIONS.GET_USERS_LIST:
+      return {
+        ...state,
+        users: action.users,
+      };
+    case ACTIONS.LEAVE_ROOM:
+      return {
+        ...state,
+        roomId: "",
+        roomName: "",
+        userName: "",
       };
     default:
       return state;

@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 import { Home } from "./pages/HomePage/Home";
 import { Room } from "./pages/RoomPage/Room";
 import { NotFound } from "./pages/404Page/404";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
 
 export const App = () => {
   return (

@@ -1,40 +1,46 @@
-import React, { useEffect, useState } from "react";
+import "./users.css";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import socket from "../../../socket";
 import ACTIONS from "../../../socket/actions";
-import { useHistory } from "react-router";
+import { onGetUsersList, onShareRooms } from "../../../actions/actions";
 
 export const UsersList = () => {
-  const [usersList, setUserList] = useState([]);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const usersList = useSelector((state) => state.chat.users);
 
+  //событие на получение списка комнат
   useEffect(() => {
-    socket.on(ACTIONS.GET_LIST_USERS, ({ usersList }) => {
-      setUserList(usersList);
-    });
+    dispatch(onShareRooms(socket));
   }, []);
 
+  //событие на получение текущего списка пользователей
+  useEffect(() => {
+    dispatch(onGetUsersList(socket));
+  }, [usersList, dispatch]);
+
   return (
-    <React.Fragment>
-      <div>
-        <ul>
-          <li>
-            <button
-              onClick={() => {
-                socket.emit(ACTIONS.LEAVE);
-                history.push("/");
-              }}
-            >
-              X
-            </button>
+    <div className="users">
+      <ul className="users_list">
+        {usersList.map((user) => (
+          <li className="users_list-item" key={user.userId}>
+            <div className="users_list-item-icon">{user.userName[0]}</div>
+            <span className="users_list-item-username">{user.userName}</span>
           </li>
-          {usersList.map((user) => (
-            <li key={user.userId}>
-              <div>{user.username[0]}</div>
-              <span>{user.username}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </React.Fragment>
+        ))}
+      </ul>
+      <button
+        className="users-exit"
+        onClick={() => {
+          //при клике на ВЫХОД пользователь удаляется из комнаты и попадает на главную страницу
+          socket.emit(ACTIONS.LEAVE_ROOM);
+          history.push("/");
+        }}
+      >
+        EXIT
+      </button>
+    </div>
   );
 };

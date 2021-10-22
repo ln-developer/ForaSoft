@@ -6,6 +6,7 @@ const ACTIONS = {
   SHARE_ROOMS: "share-rooms",
   GET_MESSAGE: "get-message",
   SEND_MESSAGE: "send-message",
+  GET_USERS_LIST: "get-users-list",
   NOT_FOUND: "not-found",
   JOIN_ROOM: "join-room",
   LEAVE_ROOM: "leave-room",

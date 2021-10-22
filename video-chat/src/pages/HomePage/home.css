@@ -1,0 +1,66 @@
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5181b84f;
+  color: white;
+}
+
+.home h2 {
+  text-align: center;
+  margin: 0;
+  padding-top: 20px;
+}
+
+label {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.home input,
+.home select {
+  border: 1px solid white;
+  width: 100%;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.home_btn {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  background-color: #3873b6;
+  border: 1px solid white;
+  border-radius: 8px;
+  color: #fff;
+  padding: 5px;
+  font-size: 13px;
+}
+
+.home_mainWin {
+  width: 500px;
+  height: 250px;
+  display: flex;
+  background-color: #5181b8;
+  border-radius: 10px;
+}
+
+.home_join {
+  flex-grow: 0.5;
+  width: 100%;
+  border-right: 2px solid white;
+}
+
+.home_inputCont {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.home_create {
+  flex-grow: 0.5;
+  width: 100%;
+}

@@ -1,5 +1,6 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 
+//данный hook является заменой this.setState({}, (cb) => cb) в классовых компонентах
 export const useStateWithCallback = (initialState) => {
   const [state, setState] = useState(initialState);
   const cbRef = useRef(null);

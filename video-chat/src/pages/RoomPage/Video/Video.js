@@ -2,6 +2,7 @@ import { useWebRTC, LOCAL_VIDEO } from "../../../hooks/useWebRTC";
 import "./video.css";
 
 export const Video = ({ roomId }) => {
+  //достаем из хука всех клиентов и доступные стримы
   const { clients, provideMediaRef } = useWebRTC(roomId);
   return (
     <div className="video">

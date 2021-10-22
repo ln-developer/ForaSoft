@@ -1,6 +1,6 @@
-import ACTIONS from "../socket/actions";
 import { v4 } from "uuid";
 import moment from "moment";
+import ACTIONS from "../socket/actions";
 
 export const createRoom = (userName, roomName, roomId) => {
   return {
@@ -67,7 +67,7 @@ export const sendName = (userName) => {
 export const onSendName = (socket, roomId) => {
   return (dispatch) => {
     dispatch(emitGetName(socket, roomId));
-    socket.on(ACTIONS.SEND_NAME, ({ userName }) => {
+    socket.on(ACTIONS.SEND_NAME, ({ name: userName }) => {
       dispatch(sendName(userName));
     });
   };
@@ -82,7 +82,7 @@ export const shareRooms = (rooms) => {
 
 export const onShareRooms = (socket) => {
   return (dispatch) => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({ rooms = [] } = {}) => {
+    socket.on(ACTIONS.SHARE_ROOMS, ({ rooms }) => {
       dispatch(shareRooms(rooms));
     });
   };
@@ -128,49 +128,31 @@ export const emitSendMsg = (socket, roomId, userName, text) => {
   };
 };
 
-// export const joinRoom = (roomId) => {
-//   return {
-//     type: ACTIONS.JOIN_ROOM,
-//     roomId,
-//   };
-// };
+export const getUsersList = (users) => {
+  return {
+    type: ACTIONS.GET_USERS_LIST,
+    users,
+  };
+};
 
-// export const emitJoinRoom = (socket, roomId) => {
-//   return (dispatch, getState) => {
-//     dispatch(joinRoom(roomId));
-//     socket.emit(ACTIONS.JOIN_ROOM, { room: getState().socket.roomId });
-//   };
-// };
+export const onGetUsersList = (socket) => {
+  return (dispatch) => {
+    socket.on(ACTIONS.GET_USERS_LIST, ({ usersList }) => {
+      dispatch(getUsersList(usersList));
+    });
+  };
+};
 
-// export const startMediaStream = (
-//   socket,
-//   localMediaStream,
-//   peerMediaElements,
-//   addNewClient,
-//   LOCAL_VIDEO
-// ) => {
-//   return (dispatch, getState) => {
-//     const startStream = async () => {
-//       localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-//         audio: true,
-//         video: {
-//           width: 1280,
-//           height: 720,
-//         },
-//       });
+export const leaveRoom = () => {
+  return {
+    type: ACTIONS.LEAVE_ROOM,
+  };
+};
 
-//       addNewClient(LOCAL_VIDEO, () => {
-//         const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
-
-//         if (localVideoElement) {
-//           localVideoElement.volume = 0;
-//           localVideoElement.srcObject = localMediaStream.current;
-//         }
-//       });
-//     };
-
-//     startStream()
-//       .then(() => dispatch(emitJoinRoom(socket, getState().socket.roomId)))
-//       .catch((error) => console.error("Error getting userMedia", error));
-//   };
-// };
+export const emitLeaveRoom = (socket, history) => {
+  return (dispatch) => {
+    socket.emit(ACTIONS.LEAVE_ROOM);
+    dispatch(leaveRoom());
+    history.push("/");
+  };
+};
